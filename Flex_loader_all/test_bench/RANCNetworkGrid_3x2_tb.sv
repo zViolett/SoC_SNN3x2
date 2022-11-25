@@ -8,43 +8,43 @@ module top ();
 	
 	reg clk, sys_clk, reset_n, sys_rst, csr_rst, sys_reset_n;
 
-	reg                 param_winc        	;
-	reg		[31:0]		parameter_in		;
-	reg		[2:0]		next_core			;
+	reg			param_winc        	;
+	reg	[31:0]		parameter_in		;
+	reg	[2:0]		next_core		;
 
-	reg                 neuron_inst_winc 	;
-	reg 	[1:0]       neuron_inst_wdata	;
+	reg                 	neuron_inst_winc 	;
+	reg 	[1:0]       	neuron_inst_wdata	;
 
-	reg					packet_winc 		;
-	reg		[29:0]		packet_wdata		;
-	reg					spike_en    		;
-	reg					load_end    		;
+	reg			packet_winc 		;
+	reg	[29:0]		packet_wdata		;
+	reg			spike_en    		;
+	reg			load_end    		;
 	
-	wire				tick				;
-    wire                complete            ;
-    wire    [249:0]     spike_out           ;
-	wire				next_core_en		;
-	wire	[2:0]		grid_state			;
+	wire			tick			;
+        wire                	complete            	;
+        wire    [249:0]     	spike_out           	;
+	wire			next_core_en		;
+	wire	[2:0]		grid_state		;
 	
 	SNN_3x2 SNN_3x2_dut(
 		.clk              	(clk				),
 		.reset_n          	(reset_n			),
 		.sys_clk          	(sys_clk			),
-		.sys_reset_n      	(sys_reset_n		),
-		.next_core			(next_core			),
-		.parameter_in		(parameter_in		),
+		.sys_reset_n      	(sys_reset_n			),
+		.next_core		(next_core			),
+		.parameter_in		(parameter_in			),
 		.param_winc       	(param_winc			),
-		.neuron_inst_wdata	(neuron_inst_wdata	),
-		.neuron_inst_winc 	(neuron_inst_winc	),
-		.packet_winc        (packet_winc        ),
-        .packet_wdata       (packet_wdata       ),
-        .spike_en           (spike_en           ),
-        .load_end           (load_end           ),
-		.next_core_en		(next_core_en		),
-		.tick_ready			(tick				),
+		.neuron_inst_wdata	(neuron_inst_wdata		),
+		.neuron_inst_winc 	(neuron_inst_winc		),
+		.packet_winc        	(packet_winc        		),
+        	.packet_wdata       	(packet_wdata       		),
+        	.spike_en           	(spike_en           		),
+        	.load_end           	(load_end           		),
+		.next_core_en		(next_core_en			),
+		.tick_ready		(tick				),
 		.complete         	(complete			),
-		.spike_out			(spike_out			),
-		.grid_state			(grid_state			)
+		.spike_out		(spike_out			),
+		.grid_state		(grid_state			)
 	);
 
 	//load param
