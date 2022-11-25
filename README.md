@@ -20,3 +20,10 @@ That why using another FPGA with more cell will be fine~
 This design fixed parameter in CSRAM like original design and change the fixed packet_in, use a fifo to load packet_in.
 If we use kc705 so we need to use this. The total of flip flop after synthesis is 59395 (met requirement)
 ```
+
+## Finally
+```Shell
+To integrated SNN vs SoC in LiteX. You need to modify files: soc_linux.py, make.py
+    import migen module to soc_linux.py then add a function to initial an SNN
+    Then call that function in make.py
+```
