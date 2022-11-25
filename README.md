@@ -4,11 +4,11 @@
 
     All neuron parameter are initial by constant value so tool not synthesis them as register, except a little bit like these:
 ```Shell
-    "else if(update_potential) begin
+    else if(update_potential) begin
         for(i = 0; i<256; i = i + 1) neuron_parameter[i][111:103] <= potential_out[i];
-    end"
-    Total flip flip that would be synthesis are (9*256*5)= 11520
+    end
 ```
+    Total flip flip that would be synthesis are (9*256*5)= 11520
 
 ## Flex_loader_all desgin
 
