@@ -13,7 +13,7 @@
 ## Flex_loader_all desgin
 
     Because we use a fifo to load parameter into SNN, the memory used to store value of neuron parameter will be synthesis as register (flip flop). So total of flip flip that would be synthesis are (356*256*5) = 471040. 
-So we cant synthesis the design using kc705 which just has about 400000 flip flop
+    So we cant synthesis the design using kc705 which just has about 400000 flip flop
     That why using another FPGA with more cell will be fine~ 
 
 ## Flex_loader_packet design
