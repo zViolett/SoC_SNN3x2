@@ -6,7 +6,7 @@ module SNN_3x2 #(
     input                   sys_clk             ,   //cpu clock
     input                   sys_reset_n         ,   //cpu resetn
     input       [2:0]       next_core           ,
-    input       [31:0]     parameter_in        ,
+    input       [31:0]      parameter_in        ,
     input                   param_winc          ,   //param write enable
     input       [1:0]       neuron_inst_wdata   ,   //neuron instruction
     input                   neuron_inst_winc    ,   //neuron_inst write enable
@@ -39,29 +39,29 @@ module SNN_3x2 #(
     assign  grid_state_in = grid_state;
 
     load_packet packet_loader(
-		.clk                   	(clk                    ),
-		.reset_n               	(reset_n                ),
-		.sys_clk               	(sys_clk                ),
-		.sys_reset_n           	(reset_n                ),
-		.ren_to_input_buffer	(ren_to_input_buffer	),
-		.tick              		(tick_ready				),
-		.packet_out_valid  		(packet_out_valid		),
-		.packet_out        		(packet_out				),
-		.grid_state        		(grid_state_in  		),
-		.packet_winc            (packet_winc            ),
+	.clk                   	(clk                    ),
+	.reset_n               	(reset_n                ),
+	.sys_clk               	(sys_clk                ),
+	.sys_reset_n           	(reset_n                ),
+	.ren_to_input_buffer	(ren_to_input_buffer	),
+	.tick              	(tick_ready		),
+	.packet_out_valid  	(packet_out_valid	),
+	.packet_out        	(packet_out		),
+	.grid_state        	(grid_state_in  	),
+	.packet_winc            (packet_winc            ),
         .packet_wdata           (packet_wdata           ),
         .spike_en               (spike_en               ),
         .load_end               (load_end               ),
-		.input_buffer_empty		(input_buffer_empty		),
-		.complete          		(complete				),
-		.state             		(state					),
-		.spike_out         		(spike_out				),
-		.packet_in				(packet_in				)
+	.input_buffer_empty	(input_buffer_empty	),
+	.complete          	(complete		),
+	.state             	(state			),
+	.spike_out         	(spike_out		),
+	.packet_in		(packet_in		)
 	);
 
     RANCNetworkGrid_3x2 RANCNetworkGrid_3x2_ins(
         .clk                   	                (clk                                    ),
-		.reset_n               	                (reset_n                                ),
+	.reset_n               	                (reset_n                                ),
         .sys_clk                                (sys_clk                                ),
         .sys_reset_n                            (sys_reset_n                            ),
         .next_core                              (next_core                              ),
@@ -78,12 +78,11 @@ module SNN_3x2 #(
         .ren_to_input_buffer                    (ren_to_input_buffer                    ),
         .grid_state                             (grid_state                             ),
         .forward_north_local_buffer_empty_all   (forward_north_local_buffer_empty_all   )
-
 	);
 
     tick_gen tick_generation(
         .clk                   	                (clk                                    ),
-		.rst_n               	                (reset_n                                ),
+	.rst_n               	                (reset_n                                ),
         .state                                  (state                                  ),
         .grid_state                             (grid_state_in                          ),
         .input_buffer_empty                     (input_buffer_empty                     ),
