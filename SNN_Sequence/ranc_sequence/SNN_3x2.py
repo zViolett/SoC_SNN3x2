@@ -45,10 +45,16 @@ class snn_3x2(Module, AutoCSR, AutoDoc):
         self.next_core_en       = CSRStorage(name="next_core_en",description='Enable next core to load param', reset=0x0, size=1, write_from_dev=True)
         self.grid_state         = CSRStorage(name="grid_state",description='Grid state of SNN', reset=0x0, size=3, write_from_dev=True)
 
-        self.comb += self.next_core_en.dat_w.eq(1)
+        self.snn_status = CSRStatus(size=32, fields=[
+            CSRField(name="packet_wfull", description="flag full", size=1, reset=0x0),
+            CSRField(name="param_wfull", description="flag full", size=1, reset=0x0),
+            CSRField(name="neuron_inst_wfull", description="flag full", size=1, reset=0x0),
+        ], description="SNN status")
+
+        self.comb += self.next_core_en.we.eq(1)
         self.comb += self.grid_state.we.eq(1)
-        self.comb += self.tick_ready.dat_w.eq(1)
-        self.comb += self.complete.dat_w.eq(1)
+        self.comb += self.tick_ready.we.eq(1)
+        self.comb += self.complete.we.eq(1)
         self.comb += self.spike_out.we.eq(1)
 
         self.comb += self.param_wdata.eq(Cat(self.param0.storage, 
@@ -80,11 +86,14 @@ class snn_3x2(Module, AutoCSR, AutoDoc):
             i_packet_wdata      = self.packet_wdata.storage     ,
             i_spike_en          = self.spike_en.storage         ,
             i_load_end          = self.load_end.storage         ,
-            o_next_core_en      = self.next_core_en.we          ,
-            o_tick_ready        = self.tick_ready.we            ,
-            o_complete          = self.complete.we              ,
+            o_next_core_en      = self.next_core_en.dat_w       ,
+            o_tick_ready        = self.tick_ready.dat_w         ,
+            o_complete          = self.complete.dat_w           ,
             o_spike_out         = self.spike_out.dat_w          ,
-            o_grid_state        = self.grid_state.dat_w
+            o_grid_state        = self.grid_state.dat_w         ,
+            o_packet_wfull      = self.snn_status.fields.packet_wfull   ,
+            o_param_wfull       = self.snn_status.fields.param_wfull    ,
+            o_neuron_inst_wfull = self.snn_status.fields.neuron_inst_wfull
         )
 
         platform.add_source_dir("./ranc_sequence/ranc3x2")

@@ -17,6 +17,7 @@ module load_packet #(
     input                   spike_en            ,   //spike out enable (Status signal for FSM)
     input                   load_end            ,   //done loading packet (Status signal for FSM)
     
+    output                  packet_wfull        ,
     output                  input_buffer_empty  ,
     output                  complete            ,   //all process complete
     output      [2:0]       state               ,   //state of loading packet process
@@ -38,7 +39,7 @@ module load_packet #(
     reg [249:0]         spike_reg, spike_next               ;
     reg [2:0]           cnt_end_reg, cnt_end_next           ;
 
-    wire                packet_wfull                        ;
+    // wire                packet_wfull                        ;
    
 
 ////////////////////////////////////////

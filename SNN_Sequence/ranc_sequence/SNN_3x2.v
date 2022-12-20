@@ -15,10 +15,13 @@ module SNN_3x2 #(
     input                   spike_en            ,   //spike out enable
     input                   load_end            ,   //done loading packet
     output                  next_core_en        ,
-    output              tick_ready          ,   //tick for system
-    output               complete            ,   //all process complete
-    output   [249:0]     spike_out           ,
-    output   [2:0]       grid_state              // neuron grid controller state
+    output                  tick_ready          ,   //tick for system
+    output                  complete            ,   //all process complete
+    output   [249:0]        spike_out           ,
+    output   [2:0]          grid_state          ,    // neuron grid controller state
+    output                  packet_wfull        ,
+    output                  param_wfull         ,
+    output                  neuron_inst_wfull
     
 );
 
@@ -123,6 +126,7 @@ module SNN_3x2 #(
         .packet_wdata           (packet_wdata           ),
         .spike_en               (spike_en_sync          ),
         .load_end               (load_end_sync          ),
+        .packet_wfull           (packet_wfull           ),
 		.input_buffer_empty		(input_buffer_empty		),
 		.complete          		(complete_sync  		),
 		.state             		(state					),
@@ -148,7 +152,9 @@ module SNN_3x2 #(
         .packet_out_valid                       (packet_out_valid                       ),
         .ren_to_input_buffer                    (ren_to_input_buffer                    ),
         .grid_state                             (grid_state_sync                        ),
-        .forward_north_local_buffer_empty_all   (forward_north_local_buffer_empty_all   )
+        .forward_north_local_buffer_empty_all   (forward_north_local_buffer_empty_all   ),
+        .param_wfull                            (param_wfull                            ),
+        .neuron_inst_wfull                      (neuron_inst_wfull                      )
 
 	);
 
