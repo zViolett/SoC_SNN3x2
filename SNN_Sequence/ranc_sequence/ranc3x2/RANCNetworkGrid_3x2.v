@@ -26,7 +26,9 @@ module RANCNetworkGrid_3x2 #(
     input           param_winc          ,
     input   [1:0]   neuron_inst_wdata   ,
     input           neuron_inst_winc    ,
-    output          next_core_en        
+    output          next_core_en        ,
+    output          param_wfull         ,
+    output          neuron_inst_wfull
 );
 
     localparam NUM_CORES = GRID_DIMENSION_X * GRID_DIMENSION_Y;
@@ -58,14 +60,14 @@ module RANCNetworkGrid_3x2 #(
     wire [20:0] south_out_packets   [NUM_CORES - 1:0];
 
     //wire for param
-    wire                        param_wfull_fifo            ;
+    // wire                        param_wfull_fifo            ;
     wire                        param_wen_fifo              ;
     wire    [367:0]             param_data_in_fifo          ;
     wire    [$clog2(256)-1:0]   param_address_fifo          ;
     reg                         param_wen           [0:4]   ;
     reg     [367:0]             param_data_in       [0:4]   ;
     reg     [$clog2(256)-1:0]   param_address       [0:4]   ;
-    wire                        neuron_inst_wfull           ;
+    // wire                        neuron_inst_wfull           ;
     wire                        neuron_inst_wen             ;
     wire    [$clog2(256)-1:0]   neuron_inst_address         ;
     wire    [1:0]               neuron_inst_data_in         ;
@@ -157,7 +159,7 @@ module RANCNetworkGrid_3x2 #(
         .wrst_n   (sys_reset_n              ),
         .winc     (param_winc               ),
         .wdata    (parameter_in             ),
-        .wfull    (param_wfull_fifo         ),
+        .wfull    (param_wfull              ),
         .rclk     (clk                      ),
         .rrst_n   (reset_n                  ),
         .write_en (param_wen_fifo           ),
